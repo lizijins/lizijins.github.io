@@ -1,11 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>My Blog</title>
-    <link href="public/css/base.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>分享</title>
+    <style>
+        body {
+            font:14px/1.5 tahoma,arial,"Hiragino Sans GB","Microsoft YaHei";
+        }
+        li,p,code {
+            color: #585a5e;
+        }
+        p,code,a,button {
+            margin-left: 24px;
+        }
+        code {
+            display: inline-block;
+            min-width: 500px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #f8f8f8;
+            border: 1px dotted #959595;
+        }
+        section {
+            margin-bottom: 50px;
+        }
+        strong {
+            display: inline-block;
+            min-width: 150px;
+        }
+        canvas {
+            display: block;
+            margin: 30px 24px 10px;
+            border: 1px solid #cccccc;
+        }
+    </style>
 </head>
 <body>
-<p>hello world!</p>
+<article>
+    <section>
+        <h2>什么是 Canvas？</h2>
+        <ul>
+            <li>HTML5 的 canvas 元素使用 JavaScript 在网页上绘制图像。</li>
+            <li>画布是一个矩形区域，您可以控制其每一像素。</li>
+            <li>canvas 拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。</li>
+        </ul>
+    </section>
+    <section>
+        <h2>创建 Canvas 元素</h2>
+        <p>向 HTML5 页面添加 canvas 元素。</p>
+        <p>规定元素的 id、宽度和高度：</p>
+        <code>&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;</code>
+    </section>
+    <section>
+        <h2>通过 JavaScript 来绘制</h2>
+        <p>canvas 元素本身是没有绘图能力的。所有的绘制工作必须在 JavaScript 内部完成：</p>
+        <p>JavaScript 使用 id 来寻找 canvas 元素：</p>
+        <code>var c=document.getElementById("myCanvas");</code>
+        <p>然后，创建 context 对象：</p>
+        <code>var ctx=c.getContext("2d"); </code>
+        <p>getContext("2d") 对象是内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。</p>
+    </section>
+    <section>
+        <h2>浏览器支持</h2>
+        <p>Internet Explorer 9、Firefox、Opera、Chrome 以及 Safari 支持 &lt;canvas&gt; 及其属性和方法。</p>
+        <p><b>注释：</b>Internet Explorer 8 以及更早的版本不支持 &lt;canvas&gt; 元素。</p>
+    </section>
+    <section>
+        <h2>绘图示例</h2>
+        <p>先列出下面用到的一些常用的属性和方法：</p>
+        <ul>
+            <li><strong>fillStyle</strong>设置或返回用于填充绘画的颜色、渐变或模式</li>
+            <li><strong>strokeStyle</strong>设置或返回用于笔触的颜色、渐变或模式</li>
+            <li><strong>fill()</strong>填充当前绘图（路径）</li>
+            <li><strong>stroke()</strong>绘制已定义的路径</li>
+            <li><strong>beginPath()</strong>起始一条路径，或重置当前路径</li>
+            <li><strong>moveTo()</strong>把路径移动到画布中的指定点，不创建线条</li>
+            <li><strong>closePath()</strong>创建从当前点回到起始点的路径</li>
+            <li><strong>lineTo()</strong>添加一个新点，然后在画布中创建从该点到最后指定点的线条</li>
+            <li><strong>quadraticCurveTo()</strong>创建二次贝塞尔曲线</li>
+            <li><strong>bezierCurveTo()</strong>创建三次方贝塞尔曲线</li>
+            <li><strong>arc()</strong>创建弧/曲线（用于创建圆形或部分圆）</li>
+            <li><strong>arcTo()</strong>创建两切线之间的弧/曲线</li>
+            <li><strong>clearRect()</strong>在给定的矩形内清除指定的像素</li>
+        </ul>
+        <a href="http://www.w3school.com.cn/tags/html_ref_canvas.asp" target="_blank">Canvas 参考手册</a>
+        <br />
+        <canvas id="myCanvas" width="300" height="300">你的浏览器不支持哟。</canvas>
+        <button onclick="ctx.clearRect(0,0, canvas.width, canvas.height);">清除画布</button>
+        <p>线：</p>
+        <code>
+            ctx.beginPath();<br/>
+            ctx.moveTo(0,0);<br/>
+            ctx.lineTo(300,150);<br/>
+            ctx.stroke();
+        </code>
+        <p>圆：</p>
+        <code>
+            ctx.beginPath();<br/>
+            ctx.arc(100,75,50,0,2*Math.PI);<br/>
+            ctx.stroke();
+        </code>
+        <p>二次贝塞尔：</p>
+        <code>
+            ctx.beginPath();<br/>
+            ctx.moveTo(20,20);<br/>
+            ctx.quadraticCurveTo(20,100,200,20);<br/>
+            ctx.stroke();
+        </code>
+        <p>三次贝塞尔：</p>
+        <code>
+            ctx.beginPath();<br/>
+            ctx.moveTo(20,20);<br/>
+            ctx.bezierCurveTo(20,100,200,10,200,100);<br/>
+            ctx.stroke();
+        </code>
+    </section>
+    <section>
+        <h2>canvas 动画</h2>
+        <canvas id="myCanvas2" width="300" height="300">你的浏览器不支持哟。</canvas>
+        <button onclick="step = 0;loop();">示例</button>
+        <a href="http://sale.fenqile.com/2016031502/index.html?_FTAG=34F9331-87541E0" target="_blank" style="display: block;margin-top: 20px;">canvas动画</a>
+    </section>
+</article>
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+
+    var canvas2 = document.getElementById("myCanvas2");
+    var ctx2 = canvas2.getContext("2d");
+    var step = 0;
+
+    window.requestAnimFrame = (function(){
+        return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function(fn){
+                    window.setTimeout(fn, 1000 / 60);
+                };
+    })();
+
+    function loop() {
+        var num = parseInt(step/3.6) + "%";
+        step+=5;
+        ctx2.clearRect(0,0,canvas.width,canvas.height);
+        ctx2.fillStyle="#0000ff";
+        ctx2.beginPath();
+        ctx2.moveTo(100,75);
+        ctx2.lineTo(150,75);
+        ctx2.arc(100,75,50,0,2*step*Math.PI/360);
+        ctx2.closePath();
+        ctx2.fill();
+        ctx2.fillStyle="#ffffff";
+        ctx2.beginPath();
+        ctx2.arc(100,75,35,0,2*Math.PI);
+        ctx2.fill();
+        ctx2.font="20px Arial";
+        ctx2.fillStyle="#0000ff";
+        ctx2.textAlign="center";
+        ctx2.textBaseline="middle";
+        ctx2.fillText(num,100,75);
+        if(step <= 360) {
+            requestAnimFrame(loop);
+        }
+    }
+
+</script>
 </body>
 </html>
